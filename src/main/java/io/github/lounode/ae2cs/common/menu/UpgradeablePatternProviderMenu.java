@@ -1,5 +1,7 @@
 package io.github.lounode.ae2cs.common.menu;
 
+import io.github.lounode.ae2cs.integration.patterndisk.DiskAwarePatternSlot;
+
 import appeng.api.config.LockCraftingMode;
 import appeng.api.config.Settings;
 import appeng.api.config.YesNo;
@@ -20,8 +22,6 @@ import appeng.menu.slot.RestrictedInputSlot;
 
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.inventory.MenuType;
-
-import io.github.lounode.ae2cs.integration.patterndisk.DiskAwarePatternSlot;
 
 /**
  * 防止被他人mixin PatternProviderMenu的副作用影响
@@ -49,7 +49,7 @@ public class UpgradeablePatternProviderMenu extends AEBaseMenu {
 
     /**
      * @param acceptsPatternDisks whether this provider's slots may also hold a pattern disk. Left off for
-     *                           providers that cannot decode one, whose slots then stay AE2's plain ones.
+     *                            providers that cannot decode one, whose slots then stay AE2's plain ones.
      */
     protected UpgradeablePatternProviderMenu(MenuType<? extends UpgradeablePatternProviderMenu> menuType, int id,
                                              Inventory playerInventory, PatternProviderLogicHost host,
@@ -67,9 +67,7 @@ public class UpgradeablePatternProviderMenu extends AEBaseMenu {
 
         var patternInv = logic.getPatternInv();
         for (int x = 0; x < patternInv.size(); x++) {
-            this.addSlot(acceptsPatternDisks
-                    ? new DiskAwarePatternSlot(patternInv, x)
-                    : new RestrictedInputSlot(RestrictedInputSlot.PlacableItemType.PROVIDER_PATTERN, patternInv, x),
+            this.addSlot(acceptsPatternDisks ? new DiskAwarePatternSlot(patternInv, x) : new RestrictedInputSlot(RestrictedInputSlot.PlacableItemType.PROVIDER_PATTERN, patternInv, x),
                     SlotSemantics.ENCODED_PATTERN);
         }
 

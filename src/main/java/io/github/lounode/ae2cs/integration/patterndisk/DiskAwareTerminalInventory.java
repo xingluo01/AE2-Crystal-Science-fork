@@ -1,27 +1,31 @@
 package io.github.lounode.ae2cs.integration.patterndisk;
 
-import java.util.ArrayList;
+import appeng.api.inventories.InternalInventory;
 
 import net.minecraft.world.item.ItemStack;
 
-import appeng.api.inventories.InternalInventory;
-
 import io.github.lounode.ae2pattern.api.PatternDiskApi;
+
+import java.util.ArrayList;
 
 /**
  * The terminal view of a provider whose pattern slots serve two purposes: they hold encoded patterns and,
  * for the disks, whole disks full of them.
  *
- * <p>AE2's pattern access terminal can read exactly one inventory, so handing it the disk view alone would
+ * <p>
+ * AE2's pattern access terminal can read exactly one inventory, so handing it the disk view alone would
  * make the plain patterns beside the disks vanish from the terminal. This composite shows both: the disk
  * rows come first, then every slot that is not a disk keeps its row, empty ones included - that is where a
  * terminal writes. The disks lead because the upload path walks the rows from index 0 and stops at the
  * first one that takes the pattern; with the empty slots ahead of them an upload would land in a plain
  * slot instead of on a disk. Taking a plain row is an ordinary take; taking a disk row charges a blank
- * pattern and removes the recipe from its disk.</p>
+ * pattern and removes the recipe from its disk.
+ * </p>
  *
- * <p>Rows are laid out once, on construction - a terminal keeps the slot count it opened with, so a view
- * is rebuilt rather than rearranged when the disks change.</p>
+ * <p>
+ * Rows are laid out once, on construction - a terminal keeps the slot count it opened with, so a view
+ * is rebuilt rather than rearranged when the disks change.
+ * </p>
  */
 final class DiskAwareTerminalInventory implements InternalInventory {
 
@@ -60,9 +64,7 @@ final class DiskAwareTerminalInventory implements InternalInventory {
         if (isOutOfRange(slotIndex)) {
             return ItemStack.EMPTY;
         }
-        return isDiskRow(slotIndex)
-                ? diskRows.getStackInSlot(slotIndex)
-                : slots.getStackInSlot(plainRowToSlot[slotIndex - diskRows.size()]);
+        return isDiskRow(slotIndex) ? diskRows.getStackInSlot(slotIndex) : slots.getStackInSlot(plainRowToSlot[slotIndex - diskRows.size()]);
     }
 
     @Override

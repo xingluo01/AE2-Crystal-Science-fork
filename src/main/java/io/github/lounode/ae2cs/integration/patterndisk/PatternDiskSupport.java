@@ -1,16 +1,8 @@
 package io.github.lounode.ae2cs.integration.patterndisk;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.WeakHashMap;
-
 import io.github.lounode.ae2cs.api.ids.AECSConstants;
 import io.github.lounode.ae2cs.common.me.logic.MeteoritePatternProviderHost;
 import io.github.lounode.ae2cs.common.me.logic.ResonatingPatternProviderHost;
-
-import net.minecraft.core.BlockPos;
-import net.minecraft.world.item.ItemStack;
 
 import appeng.api.inventories.InternalInventory;
 import appeng.api.networking.IGrid;
@@ -18,24 +10,35 @@ import appeng.api.networking.security.IActionHost;
 import appeng.helpers.patternprovider.PatternProviderLogicHost;
 import appeng.parts.AEBasePart;
 
+import net.minecraft.core.BlockPos;
+import net.minecraft.world.item.ItemStack;
 import net.neoforged.fml.ModList;
 
 import io.github.lounode.ae2pattern.api.IPatternDiskHost;
 import io.github.lounode.ae2pattern.api.PatternDiskApi;
 import io.github.lounode.ae2pattern.common.pattern.PatternDiskTerminalView;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+import java.util.WeakHashMap;
+
 /**
  * The entry point of this package; its classes are the only ones in this mod that name AE2 Pattern Disk's
  * types.
  *
- * <p>Each entry point that names that mod's types is guarded by a loaded-mod check - at the callers'
+ * <p>
+ * Each entry point that names that mod's types is guarded by a loaded-mod check - at the callers'
  * sites, or inside {@link #isPatternDisk} itself - so a game without that mod never resolves them: they
  * are resolved on first use, and a missing mod would otherwise show up as a {@code NoClassDefFoundError}
- * at the worst possible moment.</p>
+ * at the worst possible moment.
+ * </p>
  *
- * <p>Three things live here: the view AE2's pattern access terminal reads, the disk-host registration that
+ * <p>
+ * Three things live here: the view AE2's pattern access terminal reads, the disk-host registration that
  * lets that mod's own disk encoding terminal list the same machines, and the disk check the pattern slots
- * use to decide what they accept.</p>
+ * use to decide what they accept.
+ * </p>
  */
 public final class PatternDiskSupport {
 
@@ -43,14 +46,15 @@ public final class PatternDiskSupport {
      * One terminal view per provider, kept until its disks change. The view freezes its row layout for the
      * length of a terminal session, so rebuilding it per read would shift rows under an open terminal.
      *
-     * <p>An entry holds its machine and, through it, that machine's level, so entries live as long as the
+     * <p>
+     * An entry holds its machine and, through it, that machine's level, so entries live as long as the
      * server does: one whose machine is broken mid-session stays here until {@link #clearCaches()} runs at
-     * shutdown.</p>
+     * shutdown.
+     * </p>
      */
     private static final Map<PatternProviderLogicHost, TerminalAccess> VIEWS = new WeakHashMap<>();
 
-    private PatternDiskSupport() {
-    }
+    private PatternDiskSupport() {}
 
     /**
      * What AE2's pattern access terminal reads: the plain patterns still sitting in the provider's slots,
@@ -147,8 +151,7 @@ public final class PatternDiskSupport {
      * class rather than per instance because the grid reports its machines by class.
      */
     private static boolean isDiskCapable(Class<?> machineClass) {
-        return MeteoritePatternProviderHost.class.isAssignableFrom(machineClass)
-                || ResonatingPatternProviderHost.class.isAssignableFrom(machineClass);
+        return MeteoritePatternProviderHost.class.isAssignableFrom(machineClass) || ResonatingPatternProviderHost.class.isAssignableFrom(machineClass);
     }
 
     /** A provider of this mod, presented to the disk encoding terminal as a host holding disks. */

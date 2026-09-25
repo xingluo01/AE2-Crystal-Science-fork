@@ -52,7 +52,6 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.ItemLike;
-
 import net.neoforged.fml.ModList;
 
 import org.jetbrains.annotations.NotNull;

@@ -11,7 +11,6 @@ import appeng.api.upgrades.UpgradeInventories;
 import appeng.helpers.patternprovider.PatternProviderLogicHost;
 
 import net.minecraft.world.item.ItemStack;
-
 import net.neoforged.fml.ModList;
 
 import java.util.List;
@@ -60,13 +59,17 @@ public interface ResonatingPatternProviderHost extends PatternProviderLogicHost,
     /**
      * What AE2's pattern access terminal - and an uploader picking a target - reads.
      *
-     * <p>This provider's pattern slots take no disks of their own: its menu keeps AE2's plain pattern slot,
+     * <p>
+     * This provider's pattern slots take no disks of their own: its menu keeps AE2's plain pattern slot,
      * so in practice this is an identity passthrough. It is overridden all the same - a disk that reached a
      * slot by some other route stays visible and usable, and the terminal then sees the same rows the
-     * upload path does.</p>
+     * upload path does.
+     * </p>
      *
-     * <p>The gate has to come first: the support class names that mod's types, and without it installed
-     * this method must never load it.</p>
+     * <p>
+     * The gate has to come first: the support class names that mod's types, and without it installed
+     * this method must never load it.
+     * </p>
      */
     @Override
     default InternalInventory getTerminalPatternInventory() {

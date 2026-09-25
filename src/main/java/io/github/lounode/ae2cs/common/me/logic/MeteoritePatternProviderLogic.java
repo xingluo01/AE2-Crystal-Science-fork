@@ -226,11 +226,13 @@ public class MeteoritePatternProviderLogic extends PatternProviderLogic implemen
      * feeds, which is AE2's own rule for pattern providers, and falls back to its own when there is no
      * single such machine.
      *
-     * <p>The faces looked at are AE2's own set - its connected neighbours minus the ones that are a
+     * <p>
+     * The faces looked at are AE2's own set - its connected neighbours minus the ones that are a
      * provider, or an interface on the same grid - and on top of that a neighbour is skipped when its
      * block entity is a provider. That second test is what keeps two providers side by side, or a chain
      * of them, from all appearing under one name: what this provider feeds is a machine, never a
-     * provider.</p>
+     * provider.
+     * </p>
      */
     @Override
     public PatternContainerGroup getTerminalGroup() {
@@ -291,8 +293,7 @@ public class MeteoritePatternProviderLogic extends PatternProviderLogic implemen
             for (var entry : node.getInWorldConnections().entrySet()) {
                 var otherNode = entry.getValue().getOtherSide(node);
                 var owner = otherNode.getOwner();
-                if (owner instanceof PatternProviderLogicHost
-                        || (owner instanceof InterfaceLogicHost && otherNode.getGrid().equals(mainNode.getGrid()))) {
+                if (owner instanceof PatternProviderLogicHost || (owner instanceof InterfaceLogicHost && otherNode.getGrid().equals(mainNode.getGrid()))) {
                     sides.remove(entry.getKey());
                 }
             }

@@ -26,8 +26,10 @@ public interface MeteoritePatternProviderHost extends PatternProviderLogicHost, 
      * pattern slots are shown as the recipes on them - which is the only way a terminal can present them
      * at all, since a disk item on its own does not decode into a pattern.
      *
-     * <p>The gate has to come first: the support class names that mod's types, and without it installed
-     * this method must never load it.</p>
+     * <p>
+     * The gate has to come first: the support class names that mod's types, and without it installed
+     * this method must never load it.
+     * </p>
      */
     @Override
     default InternalInventory getTerminalPatternInventory() {
